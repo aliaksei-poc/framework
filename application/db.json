@@ -1,0 +1,46 @@
+{
+    "add-ons": {
+        "addOnCount": 3,
+        "addOns": [
+            {
+                "addOnId": "NEX_2_MCM",
+                "title": "addon title1",
+                "description": "longer addon description1",
+                "length": 30,
+                "lengthUnits": "Days",
+                "expiryDate": "2015-06-18",
+                "costGbp": "12.00",
+                "isFree": false,
+                "isRepurchasable": false
+            },
+            {
+                "addOnId": "NEX_3_BLX",
+                "title": "addon title2",
+                "description": "longer addon description2",
+                "length": 30,
+                "lengthUnits": "Days",
+                "expiryDate": "2015-06-19",
+                "costGbp": "11.00",
+                "isFree": false,
+                "isRepurchasable": false
+            },
+            {
+                "addOnId": "NEX_1_TRD",
+                "title": "addon title3",
+                "description": "longer addon description3",
+                "length": 30,
+                "lengthUnits": "Days",
+                "expiryDate": "2015-06-18",
+                "costGbp": "10.00",
+                "isFree": false,
+                "isRepurchasable": false
+            }
+        ],
+        "links": [
+            {
+                "rel": "self",
+                "href": "https://api-sandbox.ee.co.uk/digital/v1/person-identities/self/billing-accounts/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjoiaUc2YitlNm1jeENkL2V5L01JUHFXdGNrR1lUZUw3ZzRGUT09IiwiYXVkIjoiMDAwMDAwMSIsImlzcyI6Imh0dHBzOi8vYXBpLmVlLmNvLnVrIn0.MtLiOmkg1QHDI2RpCbkCPeglaISWifc-Hr2MNQ4_464/mobile-subscriptions/447777777775/add-ons"
+            }
+        ]
+    }
+}

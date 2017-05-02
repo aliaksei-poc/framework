@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../bower_components/web-component-tester/browser.js"></script>
+    <script src="../../config.js"></script>
+
+    <link rel="import" href="../../bower_components/polymer/polymer.html">
+    <link rel="import" href="../../src/polymer-main/polymer-main.html">
+
+    <link rel="import" href="../../src/call-to-action/call-to-action.html">
+</head>
+
+<test-fixture id="cta-test-open">
+    <template>
+        <call-to-action
+                widget-action="open"
+                is-anchor>
+            <span class="cta-text-link">Remove</span>
+            <span class="cta-text-button">Remove</span>
+        </call-to-action>
+    </template>
+</test-fixture>
+
+<test-fixture id="cta-test-no-anchor">
+    <template>
+        <call-to-action
+                widget-action="open">
+            <span class="cta-text-link">Remove</span>
+            <span class="cta-text-button">Remove</span>
+        </call-to-action>
+    </template>
+</test-fixture>
+
+<test-fixture id="cta-test-close">
+    <template>
+        <call-to-action
+                widget-action="close"
+                is-anchor>
+            <span class="cta-text-link">Remove</span>
+            <span class="cta-text-button">Remove</span>
+        </call-to-action>
+    </template>
+</test-fixture>
+
+<script>
+    suite('call-to-action', function () {
+        var ctaItem;
+        suite('standard cta: ', function () {
+            setup(function(){
+                ctaItem = fixture('cta-test-open');
+            });
+            test('opening button should send open===true after click', function (done) {
+                ctaItem.addEventListener('toggle:confirm', function(e){
+                    assert.equal(e.detail.open, true);
+                    done();
+                });
+                ctaItem.click();
+            });
+            test('markup of cta is anchor', function (done) {
+                flush(function(){
+                    assert.isNotNull(ctaItem.$$('a'));
+                    done();
+                });
+            });
+        });
+        suite('closing cta: ', function(){
+            setup(function(){
+                ctaItem = fixture('cta-test-close');
+            });
+            test('closing button should send open===false after click', function (done) {
+                ctaItem.addEventListener('toggle:confirm', function(e){
+                    assert.equal(e.detail.open, false);
+                    done();
+                });
+                ctaItem.click();
+            });
+        });
+        suite('cta as button: ', function(){
+            setup(function(){
+                ctaItem = fixture('cta-test-no-anchor');
+            });
+            test('markup of cta changed to button', function (done) {
+                flush(function(){
+                    assert.isNotNull(ctaItem.$$('button'));
+                    done();
+                });
+            });
+        });
+    });
+</script>

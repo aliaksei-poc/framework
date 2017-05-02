@@ -1,0 +1,4 @@
+current-usage/bower_components/
+application/bower_components/
+application/build/
+.idea

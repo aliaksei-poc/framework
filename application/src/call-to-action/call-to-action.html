@@ -1,0 +1,52 @@
+<dom-module id="call-to-action">
+    <template>
+        <template is="dom-if" if="{{isAnchor}}">
+            <a id$="addon-in-use-{{addonData.addOnId}}"
+               class="alt button button--remove-addon-action"
+               href="#"
+               data-addon$="{{addonData.addOnId}}"
+               data-name="{{addonData.title}}"
+               data-remove-immediate="false">
+                    <content select=".cta-text-link"></content>
+            </a>
+        </template>
+        <template is="dom-if" if="{{!isAnchor}}">
+            <button id$="addon-in-use-{{addonData.addOnId}}"
+               class="alt button button--remove-addon-action"
+               data-href="#"
+               data-addon$="{{addonData.addOnId}}"
+               data-name="{{addonData.title}}"
+               data-remove-immediate="false">
+                    <content select=".cta-text-button"></content>
+            </button>
+        </template>
+    </template>
+    <script>
+        Polymer.ctaBehavior = {
+            properties: {
+                addonData: {
+                    type: Object,
+                    notify: true
+                },
+                isAnchor: {
+                    type: Boolean,
+                    value: null
+                },
+                widgetAction: String
+            },
+            listeners: {
+                click: '_handleClick'
+            },
+            _handleClick: function(){
+                this.fire('toggle:confirm', {
+                    open: (this.widgetAction === 'open')
+                });
+            }
+        };
+
+        Polymer({
+            is: 'call-to-action',
+            behaviors: [Polymer.ctaBehavior]
+        });
+    </script>
+</dom-module>

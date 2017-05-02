@@ -1,0 +1,54 @@
+<dom-module id="addons-item">
+    <template>
+        <td>
+            <span class="row-icon float-left-table ee-icon-addons"></span>
+            <p>
+                {{item.title}}
+                <span class="tooltip-container add-on-tooltip billing">
+                    <span class="tooltip-indicator">
+                        <span class="tooltip-icon"></span>
+                    </span>
+                    <span class="tooltip-text-container" style="display: none;">
+                        <img class="tooltip-callout" src="/static/0005/img/tooltip-callout.gif">
+                        <span class="tooltip-text">
+                            {{item.description}}
+                        </span>
+                        <span class="tooltip-close">&nbsp;</span>
+                    </span>
+                </span>
+            </p>
+        </td>
+        <td class="recurring-charge-details-container">
+            <span class="add-on-is-free add-on-charges-count-1">&pound;{{item.costGbp}}</span>
+        </td>
+        <td class="remove-addon-column text-align-right">
+            <span class="remove-addon-container">
+                <call-to-action
+                    addon-data="{{item}}"
+                    widget-action="open"
+                    is-anchor>
+                    <span class="cta-text-link">Remove</span>
+                    <span class="cta-text-button">Remove</span>
+                </call-to-action>
+            </span>
+        </td>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'addons-item',
+            extends: 'tr',
+            properties: {
+                item: Object
+            },
+            listeners: {
+                'toggle:confirm' : '_showConfirm'
+            },
+            _showConfirm: function(event){
+                if(event.detail.open){
+                    this.nextElementSibling.classList.remove('hidden');
+                }
+            }
+        });
+    </script>
+</dom-module>

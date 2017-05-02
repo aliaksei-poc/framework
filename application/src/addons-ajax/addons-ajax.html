@@ -1,0 +1,47 @@
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id="addons-ajax">
+    <template>
+        <iron-ajax
+            id="requestAddOns"
+            url="{{ address }}"
+            content-type="application/json"
+            method="GET"
+            handle-as="json"
+            on-response="handleResponse"
+            on-error="handleError">
+        </iron-ajax>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'addons-ajax',
+            ready: function () {
+                var cachedAddonsResponse = localStorage.getItem('addonsData');
+                if (cachedAddonsResponse) {
+                    this.ajaxResponse = JSON.parse(cachedAddonsResponse);
+                }
+                this.$.requestAddOns.generateRequest();
+            },
+            handleResponse: function (data) {
+                if (data.detail.xhr.status == '200') {
+                    this.ajaxResponse = data.detail.response;
+                    localStorage.setItem('addonsData', JSON.stringify(this.ajaxResponse));
+                }
+            },
+            handleError: function () {
+                console.log('ajax error!');
+            },
+            _checkResponse: function (newValue) {
+                this.fire('addons-ajax:change', newValue);
+            },
+            properties: {
+                address: String,
+                ajaxResponse: {
+                    observer: '_checkResponse',
+                    type: Object
+                }
+            }
+        });
+    </script>
+</dom-module>

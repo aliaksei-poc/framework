@@ -1,0 +1,50 @@
+<dom-module id="addons-confirm">
+    <template>
+        <td colspan="3">
+            <div class="clearfix">
+                <div class="col span-8 pull-left">
+                    <div class="span-12">
+                        <p>
+                            Please confirm you want to remove
+                            &nbsp;
+                            <span>{{item.title}}</span>.
+                        </p>
+                        <p>
+                            This add-on will end on your next billing date:
+                            {{item.expiryDate}}
+                        </p>
+                    </div>
+                </div>
+                <div class="col span-4 pull-right no-padding-right">
+                    <call-to-action
+                        widget-action="close"
+                        is-anchor>
+                            <span class="cta-text-link">CANCEL</span>
+                            <span class="cta-text-button">CANCEL</span>
+                    </call-to-action>
+                    <button class="alt">
+                        CONFIRM
+                    </button>
+                </div>
+            </div>
+        </td>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'addons-confirm',
+            extends: 'tr',
+            properties: {
+                item: Object
+            },
+            listeners: {
+                'toggle:confirm' : '_closeConfirm'
+            },
+            _closeConfirm: function(event){
+                if(!event.detail.open){
+                    this.classList.add('hidden');
+                }
+            }
+        });
+    </script>
+</dom-module>

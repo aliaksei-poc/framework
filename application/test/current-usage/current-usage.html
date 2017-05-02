@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../bower_components/web-component-tester/browser.js"></script>
+    <script src="../../config.js"></script>
+
+    <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+</head>
+
+<test-fixture id="simple-get">
+    <template>
+        <iron-ajax
+            url="http://ecsc00104140:3000/add-ons"
+            content-type="application/json"
+            method="GET"
+            handle-as="json"
+            on-response="handleResponse"
+            on-error="handleError">
+        </iron-ajax>
+    </template>
+</test-fixture>
+
+<script>
+    suite('<iron-ajax>', function () {
+        var ajax;
+        var request;
+        var server;
+        setup(function () {
+            ajax = fixture('simple-get');
+
+            server = sinon.fakeServer.create();
+            server.respondWith(
+                ajax._aboveConfig.method,
+                ajax._aboveConfig.url, [
+                    200,
+                    {'Content-Type': 'application/json'},
+                    '{"addOnCount": 1, "addOns": [' +
+                        '{"addOnId": "NEX_2_MCM", "title": "addon title1", "description": "longer addon description1", "length": 30,"lengthUnits": "Days","expiryDate": "2015-06-18", "costGbp": "12.00", "isFree": false, "isRepurchasable": false}' +
+                    '], "links": [{"rel": "self", "href": "https://api-sandbox.ee.co.uk/digital/v1/person-identities/self/billing-accounts/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjoiaUc2YitlNm1jeENkL2V5L01JUHFXdGNrR1lUZUw3ZzRGUT09IiwiYXVkIjoiMDAwMDAwMSIsImlzcyI6Imh0dHBzOi8vYXBpLmVlLmNvLnVrIn0.MtLiOmkg1QHDI2RpCbkCPeglaISWifc-Hr2MNQ4_464/mobile-subscriptions/447777777775/add-ons"}]}'
+                ]
+            );
+        });
+        teardown(function () {
+            server.restore();
+        });
+        suite('requests for addons from server', function () {
+            setup(function () {
+                ajax = fixture('simple-get');
+            });
+            test('has response as an object', function () {
+                request = ajax.generateRequest();
+                server.respond();
+                expect(request.response).to.be.an('object');
+            });
+            test('has the correct xhr method', function () {
+                request = ajax.generateRequest();
+                expect(request.xhr.method).to.be.equal('GET');
+            });
+        });
+    });
+</script>

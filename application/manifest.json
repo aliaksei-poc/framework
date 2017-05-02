@@ -1,0 +1,6 @@
+{
+  "name": "myee-polymer",
+  "short_name": "myee-polymer",
+  "start_url": "/",
+  "display": "standalone"
+}

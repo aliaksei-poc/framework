@@ -1,0 +1,64 @@
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../addons-item/addons-item.html">
+<link rel="import" href="../addons-confirm/addons-confirm.html">
+<link rel="import" href="../addons-ajax/addons-ajax.html">
+
+<dom-module id="current-usage">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      .hidden{
+        display: none;
+      }
+      .current-addons-table button {
+        width: auto;
+      }
+      #remove-confirm-tr{
+        display: none;
+      }
+    </style>
+    <!--<link rel="stylesheet" href="/static/0005/css/tooltips.css">-->
+
+    <addons-ajax address="{{getAddonsUrl}}"></addons-ajax>
+
+    <div class="panel pay-summary-table margin-bottom-1em">
+      <form name="Addonnew" id="Addonnew" action="." method="post" class="ee-form">
+        <input type="hidden" id="secureToken" name="secureToken" value="a106cdcc-19d5-426e-a6ca-5aa31ca3ac40">
+        <section class="module">
+          <h4>Add-ons in use</h4>
+          <table summary="Add-ons with monthly charges" class="myee--table current-addons-table">
+            <template is="dom-repeat" items="{{ajaxResponse.addOns}}">
+              <tr is="addons-item" class$="{{ checkEven(index) }}" item="{{ item }}"></tr>
+              <tr is="addons-confirm" class$="{{ checkEven(index) }} hidden" item="{{ item }}" id="remove-confirm-{{item.addOnId}}"></tr>
+            </template>
+          </table>
+        </section>
+        <div id="template--remove-confirm" class="hidden span-12"></div>
+      </form>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'current-usage',
+      checkEven: function (index) {
+        return index % 2 == 0 ? 'even' : 'odd';
+      },
+      _setResponse: function (e) {
+        this.ajaxResponse = e.detail;
+      },
+      listeners: {
+        'addons-ajax:change': '_setResponse'
+      },
+      properties: {
+        getAddonsUrl: {
+          type: String,
+          value: config.get('getAddonsUrl')
+        },
+        ajaxResponse: Object
+      }
+    });
+  </script>
+</dom-module>

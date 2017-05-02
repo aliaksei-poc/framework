@@ -1,0 +1,11 @@
+{
+  "quiet": true,
+  "verbose": true,
+  "simpleOutput": true,
+  "persistent": false,
+  "plugins": {
+    "local": {
+      "browsers": ["chrome"]
+    }
+  }
+}
