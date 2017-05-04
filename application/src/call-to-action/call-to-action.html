@@ -23,17 +23,6 @@
     </template>
     <script>
         Polymer.ctaBehavior = {
-            properties: {
-                addonData: {
-                    type: Object,
-                    notify: true
-                },
-                isAnchor: {
-                    type: Boolean,
-                    value: null
-                },
-                widgetAction: String
-            },
             listeners: {
                 click: '_handleClick'
             },
@@ -46,6 +35,17 @@
 
         Polymer({
             is: 'call-to-action',
+            properties: {
+                addonData: {
+                    type: Object,
+                    notify: true
+                },
+                isAnchor: {
+                    type: Boolean,
+                    value: null
+                },
+                widgetAction: String
+            },
             behaviors: [Polymer.ctaBehavior]
         });
     </script>
